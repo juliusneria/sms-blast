@@ -1,0 +1,157 @@
+[
+  {
+    "tabName":"USER",
+    "iconClass":"account_circle",
+    "privileges":[
+      {
+        "privilegeName":"Disable User",
+        "key":"DISABLE_USER",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Search Users",
+        "key":"SEARCH_USERS",
+        "boolean":false
+      },
+      {
+        "privilegeName":"View Users",
+        "key":"VIEW_USERS",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Create User",
+        "key":"CREATE_USER",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Update User",
+        "key":"UPDATE_USER",
+        "boolean":false
+      }
+    ]
+  },
+  {
+    "tabName":"PRODUCT",
+    "iconClass":"shopping_cart",
+    "privileges":[
+      {
+        "privilegeName":"Create Product",
+        "key":"CREATE_PRODUCT",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Update Product",
+        "key":"UPDATE_PRODUCT",
+        "boolean":false
+      },
+      {
+        "privilegeName":"List All Products",
+        "key":"LIST_ALL_PRODUCT",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Search Products",
+        "key":"SEARCH_PRODUCTS",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Disable Product",
+        "key":"DISABLE_PRODUCT",
+        "boolean":false
+      }
+    ]
+  },
+  {
+    "tabName":"ROLE",
+    "iconClass":"vpn_key",
+    "privileges":[
+      {
+        "privilegeName":"View Roles",
+        "key":"VIEW_ROLES",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Search Roles",
+        "key":"SEARCH_ROLES",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Edit Role",
+        "key":"EDIT_ROLE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Create Role",
+        "key":"CREATE_ROLE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Delete Role",
+        "key":"DELETE_ROLE",
+        "boolean":false
+      }
+    ]
+  },
+  {
+    "tabName":"REFERENCE",
+    "iconClass":"settings",
+    "privileges":[
+      {
+        "privilegeName":"View Reference",
+        "key":"VIEW_REFERENCE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Search References",
+        "key":"SEARCH_REFERENCES",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Edit Reference",
+        "key":"EDIT_REFERENCE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Create Reference",
+        "key":"CREATE_REFERENCE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Delete Reference",
+        "key":"DELETE_REFERENCE",
+        "boolean":false
+      }
+    ]
+  },
+  {
+    "tabName":"ITEM TYPE",
+    "iconClass":"style",
+    "privileges":[
+      {
+        "privilegeName":"View Item type",
+        "key":"VIEW_ITEM_TYPE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Search Item types",
+        "key":"SEARCH_ITEM_TYPES",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Edit Item type",
+        "key":"EDIT_ITEM_TYPE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Create Item type",
+        "key":"CREATE_ITEM_TYPE",
+        "boolean":false
+      },
+      {
+        "privilegeName":"Delete Item type",
+        "key":"DELETE_ITEM_TYPE",
+        "boolean":false
+      }
+    ]
+  }
+]

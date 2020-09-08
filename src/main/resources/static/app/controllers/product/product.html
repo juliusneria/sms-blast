@@ -1,0 +1,207 @@
+<section id="content">
+    <div data-restrict access="CREATE_PRODUCT UPDATE_PRODUCT" ng-show="isViewDetail" class="fixed-action-btn horizontal" style="bottom: 50px; right: 19px;">
+        <a class="btn-floating btn-large">
+            <i class="material-icons">add</i>
+        </a>
+        <ul>
+            <li>
+                <a class="btn-floating green tooltipped btn modal-trigger" ng-click="formProduct.submit(productForm)" data-position="top"  style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" data-tooltip="Save">
+                    <i class="material-icons">save</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="isViewDetail" class="container">
+        <br>
+        <div class="card-panel">
+            <div class="card-content">
+                <div class="row">
+                    <div ng-show="!product.id" class="col s6"><h5><span class="card-title">Create New Product</span></h5></div>
+                    <div ng-show="product.id" class="col s6"><h5><span class="card-title">Edit Product</span></h5></div>
+                    <div class="col s6"><a ng-click="formProduct.reset(productForm)" class="waves-effect waves-light right"><i class="material-icons prefix">keyboard_backspace</i></a></div>
+                </div>
+                <div data-restrict access="DISABLE_PRODUCT" class="row" ng-show="product.id">
+                    <div class="col s5 ">
+                        <input type="checkbox" ng-model="product.disable" class="filled-in" id="filled-in-box"/>
+                        <label for="filled-in-box">Disable Product</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="col s12" enctype="multipart/form-data" method="post" name="productForm">
+                        <create-update-product product="product"
+                                               file-upload="fileUpload"
+                                               img-src="imgSrc"
+                                               item-type="itemType"
+                                               item-types="itemTypes"
+                                               brands="brands"
+                                               is-item-type-error="isItemTypeError"
+                                               is-brand-error="isBrandError">
+                        </create-update-product>
+                    </form>
+                </div>
+                <!--<div class="row">
+                    <form class="col s12" enctype="multipart/form-data" method="post" name="productForm">
+                        <div class="row mb-5">
+                            <div class="col s3 "></div>
+                            <div class="col s6 landscape center-align">
+                                <img ng-src="{{imgSrc}}" id="productimg" class="center" onclick="javascript: document.getElementById('fileUpload').click()">
+                                <input enctype="multipart/form-data"
+                                       id="fileUpload"
+                                       name="fileUpload"
+                                       type="file"
+                                       fileread="fileUpload"
+                                       accept="image/x-png,image/gif,image/jpeg"/>
+
+                            </div>
+                            <div class="col s3 "></div>
+                        </div>
+                        <div class="row">
+                            <div class="col s6">
+                                <span class="selectize-label">Item type</span>
+                                <selectize config="itemTypeConfig" options='itemTypes' ng-model="product.itemType.id"></selectize>
+                                <span ng-show="isItemTypeError"><p style="color: red;">Item type name must not be empty</p></span>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field">
+                                    <input id="model"
+                                           name="Model"
+                                           ng-model="product.model"
+                                           ng-attr-validator="{{itemType.requireModel ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                                           type="text">
+                                    <label for="model" ng-style="itemType.requireModel ? {'color':'red'} : ''">Model</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                                <span ng-style="itemType.requireBrand ? {'color':'red'} : ''" class="selectize-label">Brand</span>
+                                <selectize config="brandConfig" options='brands' ng-model="product.brand.id"></selectize>
+                                <span ng-show="isBrandError"><p style="color: red;">Brand must not be empty</p></span>
+                                &lt;!&ndash;<div class="input-field">
+                                    <select id="brand"
+                                            name="Brand"
+                                            ng-model="product.brand.id"
+                                            material-select watch>
+                                        <option value="" disabled selected>Choose your option</option>
+                                        <option ng-repeat="brand in brands" value="{{brand.id}}">{{brand.value}}</option>
+                                    </select>
+                                    <label for="brand" >Brand</label>
+                                </div>&ndash;&gt;
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="color"
+                                           name="Color"
+                                           ng-model="product.color"
+                                           ng-attr-validator="{{itemType.requireColor ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                                           type="text">
+                                    <label for="color" ng-style="itemType.requireColor ? {'color':'red'} : ''">Color</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="color-code"
+                                           name="Color Code"
+                                           ng-model="product.colorCode"
+                                           ng-attr-validator="{{itemType.requireColorCode ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                                           type="text">
+                                    <label for="color-code" ng-style="itemType.requireColorCode ? {'color':'red'} : ''">Color Code</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="input-field">
+                                    <textarea id="description"
+                                              name="Description"
+                                              ng-model="product.description"
+                                              ng-attr-validator="{{itemType.requireDescription ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                                              class="materialize-textarea"></textarea>
+                                    <label for="description" ng-style="itemType.requireDescription ? {'color':'red'} : ''">Description</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div ng-show="!isViewDetail" class="container">
+        <br>
+        <div class="card-panel">
+            <div class="row center-align">
+                <div class="col s12 center"><h4><span class="card-title">Product</span></h4></div>
+            </div>
+            <div class="row">
+                <div data-restrict access="SEARCH_PRODUCTS" class="input-field col s10">
+                    <i class="material-icons prefix">search</i>
+                    <input id="icon_prefix" type="text" ng-model="search" class="validate">
+                    <label for="icon_prefix">Search</label>
+                </div>
+                <div data-restrict access="CREATE_PRODUCT" class="input-field col s2">
+                    <div class="input-field col s12">
+                        <button class="btn green waves-effect waves-light right" ng-click="createProduct()" name="action">
+                            <i class="material-icons left">add</i> New
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="isLoading" class="col s12 center-align">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer center spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!isLoading" class="col s12">
+                <br>
+                <div ng-show="totalProducts > 0" data-restrict access="LIST_ALL_PRODUCT" >
+                    <table id="data-table-simple" style="table-layout: fixed;" class="display" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Barcode</th>
+                            <th>Model</th>
+                            <th>Brand</th>
+                            <th>Color</th>
+                            <th>Color Code</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="product in products | itemsPerPage:pageSize"
+                            current-page="currentPage" ng-click="editProduct(product, $index)"
+                            total-items="totalProducts" pagination-id="product">
+                            <td><div class="truncate">{{product.id}}</div></td>
+                            <td><div class="truncate">{{product.barCode}}</div></td>
+                            <td><div class="truncate">{{product.model}}</div></td>
+                            <td><div class="truncate">{{product.brand.value}}</div></td>
+                            <td><div class="truncate">{{product.color}}</div></td>
+                            <td><div class="truncate">{{product.colorCode}}</div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="center-align">
+                        <dir-pagination-controls boundary-links="true" pagination-id="product"
+                                                 on-page-change="pageChangeHandler(newPageNumber)"
+                                                 template-url="libs/dir-paginate/dirPagination.tpl.html">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div ng-show="totalProducts == 0" data-restrict access="LIST_ALL_PRODUCT" class="card-content">
+                    <div class="row">
+                        <div class="col s12 center-align"><h2 class="center"><span class="card-title">No Products has been listed</span></h2></div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>

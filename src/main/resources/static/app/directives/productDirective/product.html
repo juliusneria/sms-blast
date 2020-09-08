@@ -1,0 +1,82 @@
+<div>
+    <div class="row mb-5">
+        <div class="col s3 "></div>
+        <div class="col s6 landscape center-align">
+            <img ng-src="{{imgSrc ? imgSrc : 'asset/images/icon/basic-upload.png'}}" id="productimg" class="center" onclick="javascript: document.getElementById('fileUpload').click()">
+            <input enctype="multipart/form-data"
+                   id="fileUpload"
+                   name="fileUpload"
+                   type="file"
+                   fileread="fileUpload"
+                   accept="image/x-png,image/gif,image/jpeg"/>
+
+        </div>
+        <div class="col s3 "></div>
+    </div>
+    <div class="row">
+        <div class="col s6">
+            <span class="selectize-label">Item type</span>
+            <selectize config="itemTypeConfig" options='itemTypes' ng-model="product.itemType.id" require="true"></selectize>
+            <span ng-show="isItemTypeError"><p style="color: red;">Item type name must not be empty</p></span>
+        </div>
+        <div class="col s6">
+            <div class="input-field">
+                <input id="model"
+                       name="Model"
+                       ng-model="product.model"
+                       ng-attr-validator="{{itemType.requireModel ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                       type="text">
+                <label for="model" ng-style="itemType.requireModel ? {'color':'red'} : ''">Model</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4">
+            <span ng-style="itemType.requireBrand ? {'color':'red'} : ''" class="selectize-label">Brand</span>
+            <selectize config="brandConfig" options='brands' ng-model="product.brand.id"></selectize>
+            <span ng-show="isBrandError"><p style="color: red;">Brand must not be empty</p></span>
+            <!--<div class="input-field">
+                <select id="brand"
+                        name="Brand"
+                        ng-model="product.brand.id"
+                        material-select watch>
+                    <option value="" disabled selected>Choose your option</option>
+                    <option ng-repeat="brand in brands" value="{{brand.id}}">{{brand.value}}</option>
+                </select>
+                <label for="brand" >Brand</label>
+            </div>-->
+        </div>
+        <div class="col s4">
+            <div class="input-field">
+                <input id="color"
+                       name="Color"
+                       ng-model="product.color"
+                       ng-attr-validator="{{itemType.requireColor ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                       type="text">
+                <label for="color" ng-style="itemType.requireColor ? {'color':'red'} : ''">Color</label>
+            </div>
+        </div>
+        <div class="col s4">
+            <div class="input-field">
+                <input id="color-code"
+                       name="Color Code"
+                       ng-model="product.colorCode"
+                       ng-attr-validator="{{itemType.requireColorCode ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                       type="text">
+                <label for="color-code" ng-style="itemType.requireColorCode ? {'color':'red'} : ''">Color Code</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <div class="input-field">
+                                    <textarea id="description"
+                                              name="Description"
+                                              ng-model="product.description"
+                                              ng-attr-validator="{{itemType.requireDescription ? 'noEmptyWhiteSpace' : 'isOptional'}}"
+                                              class="materialize-textarea"></textarea>
+                <label for="description" ng-style="itemType.requireDescription ? {'color':'red'} : ''">Description</label>
+            </div>
+        </div>
+    </div>
+</div>

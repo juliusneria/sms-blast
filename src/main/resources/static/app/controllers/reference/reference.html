@@ -1,0 +1,150 @@
+<section id="content">
+    <div data-restrict access="CREATE_REFERENCE DELETE_REFERENCE EDIT_REFERENCE" ng-show="isViewDetail" class="fixed-action-btn horizontal" style="bottom: 50px; right: 19px;">
+        <a class="btn-floating btn-large">
+            <i class="material-icons">add</i>
+        </a>
+        <ul>
+            <li data-restrict access="CREATE_REFERENCE EDIT_REFERENCE">
+                <a class="btn-floating green tooltipped btn" ng-click="formReference.submit(referenceForm)" data-position="top"  style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" data-tooltip="Save">
+                    <i class="material-icons">save</i>
+                </a>
+            </li>
+            <li ng-show="reference.id" data-restrict access="DELETE_REFERENCE">
+                <a href="" class="btn-floating red tooltipped" ng-click="delete()" data-position="top"  style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" data-tooltip="Discard">
+                    <i class="material-icons">close</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="isViewDetail" class="container">
+        <br>
+        <div class="card-panel">
+            <div class="card-content">
+                <div class="row">
+                    <div ng-show="!reference.id" class="col s6"><h5><span class="card-title">Create New Reference</span></h5></div>
+                    <div ng-show="reference.id" class="col s6"><h5><span class="card-title">Edit Reference</span></h5></div>
+                    <div class="col s6"><a ng-click="formReference.reset(referenceForm)" class="waves-effect waves-light right"><i class="material-icons prefix">keyboard_backspace</i></a></div>
+                </div>
+                <div class="row">
+                    <div class="col s1">
+                        <input ng-model="reference.switch" id="switch" type="checkbox" class="filled-in">
+                        <label for="switch">Switch</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <form class="col s12" name="referenceForm">
+                        <div class="row">
+                            <div class="col s3">
+                                <div class="input-field">
+                                    <input id="category"
+                                           name="Category"
+                                           type="text"
+                                           ng-model="reference.category"
+                                           validator="noEmptyWhiteSpace">
+                                    <label for="category" class="">Category</label>
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <div class="input-field">
+                                    <input id="key"
+                                           name="Key"
+                                           type="text"
+                                           ng-model="reference.key"
+                                           validator="noEmptyWhiteSpace">
+                                    <label for="key" class="">Key</label>
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <div class="input-field">
+                                    <input id="value"
+                                           name="Value"
+                                           type="text"
+                                           ng-model="reference.value"
+                                           ng-attr-validator="{{reference.numberValue > 0 || reference.numberValue != null ? 'isOptional' : 'noEmptyWhiteSpace'}}">
+                                    <label for="value" class="">Value</label>
+                                </div>
+                            </div>
+                            <div class="col s3">
+                                <div class="input-field">
+                                    <input id="num-value"
+                                           name="Number Value"
+                                           type="number"
+                                           ng-model="reference.numberValue"
+                                           ng-attr-validator="{{reference.value.length > 0 ? 'isOptional' : 'noEmptyWhiteSpace'}}">
+                                    <label for="num-value" class="">Number Value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="!isViewDetail" class="container">
+        <br>
+        <div class="card-panel">
+            <div class="row">
+                <div data-restrict access="SEARCH_REFERENCES" class="input-field col s10">
+                    <i class="material-icons prefix">search</i>
+                    <input ng-model="search" id="icon_prefix" type="text" class="validate">
+                    <label for="icon_prefix">Search</label>
+                </div>
+                <div data-restrict access="CREATE_REFERENCE" class="input-field col s2">
+                    <div class="input-field col s12">
+                        <button class="btn green waves-effect waves-light right" ng-click="createReference()" name="action">
+                            <i class="material-icons left">add</i> New
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="isLoading" class="col s12 center-align">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer center spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!isLoading" class="col s12">
+                <br>
+                <div data-restrict access="VIEW_REFERENCE">
+                    <table id="data-table-simple" style="table-layout: fixed;" class="display" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Category</th>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="reference in references | itemsPerPage:pageSize"
+                            current-page="currentPage" ng-click="editReference(reference, $index)"
+                            total-items="totalReference" pagination-id="reference">
+                            <td>{{reference.id}}</td>
+                            <td><div class="truncate">{{reference.category}}</div></td>
+                            <td><div class="truncate">{{reference.key}}</div></td>
+                            <td><div class="truncate">{{reference.value}}</div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="center-align">
+                        <dir-pagination-controls boundary-links="true" pagination-id="reference"
+                                                 on-page-change="pageChangeHandler(newPageNumber)"
+                                                 template-url="libs/dir-paginate/dirPagination.tpl.html">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>

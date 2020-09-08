@@ -2,9 +2,9 @@ package org.sedpi.smsblast.sendSms;
 
 import org.apache.logging.log4j.Logger;
 import org.sedpi.smsblast.common.LoggingUtil;
-import org.sedpi.smsblast.sendSms.object.SendSmsReq;
-import org.sedpi.smsblast.sendSms.object.SendSmsReqBulk;
-import org.sedpi.smsblast.sendSms.object.SendSmsRes;
+import org.sedpi.smsblast.sendSms.dto.sms.SendSmsReq;
+import org.sedpi.smsblast.sendSms.dto.sms.SendSmsReqBulk;
+import org.sedpi.smsblast.sendSms.dto.sms.SendSmsRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

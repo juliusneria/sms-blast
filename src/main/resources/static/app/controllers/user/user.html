@@ -1,0 +1,176 @@
+<section id="content">
+    <div class="container" ng-show="!isViewDetail">
+        <br>
+        <div class="card-panel">
+            <div class="row center-align">
+                <div class="col s12 center"><h4><span class="card-title">Users</span></h4></div>
+            </div>
+            <div class="row">
+                <div data-restrict access="SEARCH_USERS" class="input-field col s10">
+                    <i class="material-icons prefix">search</i>
+                    <input id="icon_prefix" type="text" ng-model="search" class="validate">
+                    <label for="icon_prefix">Search</label>
+                </div>
+                <div data-restrict access="CREATE_USER" class="input-field col s2">
+                    <div class="input-field col s12">
+                        <button class="btn green waves-effect waves-light right"
+                                ng-click="isViewDetail = true; user = {role:{}}" name="action">
+                            <i class="material-icons left">add</i> New
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="isLoading" class="col s12 center-align">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer center spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!isLoading" class="col s12">
+                <br>
+                <div ng-show="totalUsers > 0" data-restrict access="VIEW_USERS">
+                    <table id="data-table-simple" style="table-layout: fixed;" class="display" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th ng-click="sortBy = 'id'">ID</th>
+                            <th ng-click="sortBy = 'lastName'">Last Name</th>
+                            <th ng-click="sortBy = 'firstName'">First Name</th>
+                            <th ng-click="sortBy = 'username'">Username</th>
+                            <th ng-click="sortBy = 'role'">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!--<tr ng-repeat="user in users" ng-click="editUser(user)">-->
+                        <tr dir-paginate="user in users | itemsPerPage:pageSize"
+                            current-page="currentPage" ng-click="editUser(user, $index)"
+                            total-items="totalUsers" pagination-id="users">
+                            <td><div class="truncate">{{user.id}}</div></td>
+                            <td><div class="truncate">{{user.lastName}}</div></td>
+                            <td><div class="truncate">{{user.firstName}}</div></td>
+                            <td><div class="truncate">{{user.username}}</div></td>
+                            <td><div class="truncate">{{user.role.roleName}}</div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="center-align">
+                        <dir-pagination-controls boundary-links="true" pagination-id="users"
+                                                 on-page-change="pageChangeHandler(newPageNumber)"
+                                                 template-url="libs/dir-paginate/dirPagination.tpl.html">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div ng-show="totalUsers == 0" data-restrict access="VIEW_USERS" class="card-content">
+                    <div class="row">
+                        <div class="col s12 center-align"><h2 class="center"><span class="card-title">No Users has been listed</span></h2></div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+    <div data-restrict access="CREATE_USER UPDATE_USER" class="fixed-action-btn horizontal" ng-show="isViewDetail" style="bottom: 50px; right: 19px;">
+        <a class="btn-floating btn-large">
+            <i class="material-icons">add</i>
+        </a>
+        <ul>
+            <li>
+                <a class="btn-floating green tooltipped btn" ng-click="formUser.submit(userForm)" data-position="top"  style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" data-tooltip="Save">
+                    <i class="material-icons">save</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container" ng-show="isViewDetail">
+        <br>
+        <div class="card-panel">
+            <div class="card-content">
+                <div class="row">
+                    <div ng-show="!user.id" class="col s6"><h5><span class="card-title">Create New User</span></h5></div>
+                    <div ng-show="user.id" class="col s6"><h5><span class="card-title">Edit User</span></h5></div>
+                    <div class="cols s6"><a ng-click="back(userForm)" class="waves-effect waves-light right"><i class="material-icons prefix">keyboard_backspace</i></a></div>
+                </div>
+                <div data-restrict access="DISABLE_USER" class="row" ng-show="user.id">
+                    <div class="col s5 ">
+                        <input type="checkbox" ng-model="user.disable" class="filled-in" id="filled-in-box"/>
+                        <label for="filled-in-box">Disable User</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s5 "></div>
+                    <div class="col s2 ">
+                        <img src="asset/images/avatar/avatar-7.png" alt="" class="circle z-depth-2 responsive-img activator gradient-45deg-light-blue-cyan">
+                    </div>
+                    <div class="col s5 "></div>
+                </div>
+                <div class="row">
+                    <form class="col s12" name="userForm">
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input type="text"
+                                           ng-model="user.lastName"
+                                           name="Last Name"
+                                           validator="noEmptyWhiteSpace">
+                                    <label class="">Last Name</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input type="text"
+                                           ng-model="user.firstName"
+                                           name="First Name"
+                                           validator="noEmptyWhiteSpace">
+                                    <label class="">First Name</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input type="text"
+                                           ng-model="user.middleName"
+                                           name="Middle Name">
+                                    <label class="">Middle Name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input type="text"
+                                           ng-model="user.username"
+                                           name="Username"
+                                           validator="noEmptyWhiteSpace">
+                                    <label class="">Username</label>
+                                </div>
+                            </div>
+                            <div class="col s4" ng-show="!user.id">
+                                <div class="input-field">
+                                    <input type="password"
+                                           ng-model="user.password"
+                                           name="Password"
+                                           validator="noEmptyWhiteSpace">
+                                    <label class="">Password</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <span class="selectize-label">Role</span>
+                                <selectize config="myConfig" options='roles' ng-model="user.role.id" ></selectize>
+                                <span ng-show="isRoleHasError"><p style="color: red;">Role must not be empty</p></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

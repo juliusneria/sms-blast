@@ -1,0 +1,158 @@
+<section id="content">
+    <div data-restrict access="CREATE_ITEM_TYPE EDIT_ITEM_TYPE DELETE_ITEM_TYPE" ng-show="isViewDetail" class="fixed-action-btn horizontal" style="bottom: 50px; right: 19px;">
+        <a class="btn-floating btn-large">
+            <i class="material-icons">add</i>
+        </a>
+        <ul>
+            <li data-restrict access="CREATE_ITEM_TYPE EDIT_ITEM_TYPE" >
+                <a class="btn-floating green tooltipped btn modal-trigger" ng-click="save()" data-position="top"  style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" data-tooltip="Save">
+                    <i class="material-icons">save</i>
+                </a>
+            </li>
+            <li ng-show="itemType.id" data-restrict access="DELETE_ITEM_TYPE" >
+                <a href="" class="btn-floating red tooltipped" ng-click="delete()" data-position="top"  style="transform: scaleY(0.4) scaleX(0.4) translateY(40px) translateX(0px); opacity: 0;" data-tooltip="Discard">
+                    <i class="material-icons">close</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="isViewDetail" class="container">
+        <br>
+        <div class="card-panel">
+            <div class="card-content">
+                <div class="row">
+                    <div ng-show="!itemType.id" class="col s6"><h5><span class="card-title">Create New Item Type</span></h5></div>
+                    <div ng-show="itemType.id" class="col s6"><h5><span class="card-title">Edit Item Type</span></h5></div>
+                    <div class="col s6"><a ng-click="back()" class="waves-effect waves-light right"><i class="material-icons prefix">keyboard_backspace</i></a></div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field">
+                            <input id="name" type="text" ng-model="itemType.itemTypeName">
+                            <label for="name" >Item Type Name</label>
+                            <span ng-show="isItemTypeError"><p style="color: red;">Item type name must not be empty</p></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.requireModel" id="model">
+                        <label for="model">Model Required?</label>
+                    </div>
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.requireBrand" id="brand">
+                        <label for="brand">Brand Required?</label>
+                    </div>
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.requireItemType" id="item-type">
+                        <label for="item-type">Item Type Required?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.requireColor" id="color">
+                        <label for="color">Color Required?</label>
+                    </div>
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.requireColorCode" id="color-code">
+                        <label for="color-code">Color Code Required?</label>
+                    </div>
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.requireDescription" id="desc">
+                        <label for="desc">Description Required?</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s4">
+                        <input type="checkbox" class="filled-in" ng-model="itemType.allowManualQuantity" id="qty">
+                        <label for="qty">Allow Manual Quantity?</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="!isViewDetail" class="container">
+        <br>
+        <div class="card-panel">
+            <div class="row center-align">
+                <div class="col s12 center"><h4><span class="card-title">Item type</span></h4></div>
+            </div>
+            <div class="row">
+                <div data-restrict access="SEARCH_ITEM_TYPES" class="input-field col s10">
+                    <i class="material-icons prefix">search</i>
+                    <input id="icon_prefix" ng-model="search" type="text" class="validate">
+                    <label for="icon_prefix">Search</label>
+                </div>
+                <div data-restrict access="CREATE_ITEM_TYPE" class="input-field col s2">
+                    <div class="input-field col s12">
+                        <button ng-click="createItemType()" class="btn green waves-effect waves-light right" name="action">
+                            <i class="material-icons left">add</i> New
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="isLoading" class="col s12 center-align">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer center spinner-blue-only">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="!isLoading" class="col s12">
+                <br>
+                <div ng-show="totaItemType > 0" data-restrict access="VIEW_ITEM_TYPE">
+                    <table id="data-table-simple" class="display" style="table-layout: fixed;" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Item Type Name</th>
+                            <th>Model Required</th>
+                            <th>Brand Required</th>
+                            <th>Item Type Required</th>
+                            <th>Color Required</th>
+                            <th>Color Code Required</th>
+                            <th>Description</th>
+                            <th>Manual Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr dir-paginate="itemType in itemTypes | itemsPerPage:pageSize"
+                            current-page="currentPage" ng-click="editItemType(itemType, $index)"
+                            total-items="totaItemType" pagination-id="itemType">
+                            <td><div class="truncate">{{itemType.id}}</div></td>
+                            <td><div class="truncate">{{itemType.itemTypeName}}</div></td>
+                            <td>{{itemType.requireModel ? 'YES' : 'NO'}}</td>
+                            <td>{{itemType.requireBrand ? 'YES' : 'NO'}}</td>
+                            <td>{{itemType.requireItemType ? 'YES' : 'NO'}}</td>
+                            <td>{{itemType.requireColor ? 'YES' : 'NO'}}</td>
+                            <td>{{itemType.requireColorCode ? 'YES' : 'NO'}}</td>
+                            <td>{{itemType.requireDescription ? 'YES' : 'NO'}}</td>
+                            <td>{{itemType.allowManualQuantity ? 'YES' : 'NO'}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="center-align">
+                        <dir-pagination-controls boundary-links="true" pagination-id="itemType"
+                                                 on-page-change="pageChangeHandler(newPageNumber)"
+                                                 template-url="libs/dir-paginate/dirPagination.tpl.html">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div ng-show="totaItemType == 0" data-restrict access="VIEW_ITEM_TYPE" class="card-content">
+                    <div class="row">
+                        <div class="col s12 center-align"><h2 class="center"><span class="card-title">No Item type has been listed</span></h2></div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>

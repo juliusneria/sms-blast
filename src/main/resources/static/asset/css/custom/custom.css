@@ -1,0 +1,32 @@
+/*================================================================================
+	Item Name: Materialize - Material Design Admin Template
+	Version: 4.0
+	Author: PIXINVENT
+	Author URL: https://themeforest.net/user/pixinvent/portfolio
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.selectize-input input {
+    height: 21px;
+}
+.selectize-input {
+    height: 41px;
+    line-height: 4px;
+}
+.selectize-dropdown-content {
+    line-height: 30px;
+}
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+.landscape {
+    height: 200px;
+    width: 400px;
+}
+.landscape > input {
+    display: none;
+}
