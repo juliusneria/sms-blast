@@ -7,30 +7,18 @@ function configure($stateProvider, $urlRouterProvider, $validationProvider) {
             url: '/user',
             templateUrl: 'app/controllers/user/user.html',
             controller: 'UserController'
-        }).state('role', {
-            url: '/role',
-            templateUrl: 'app/controllers/role/role.html',
-            controller: 'RoleController'
-        }).state('itemType', {
-            url: '/itemType',
-            templateUrl: 'app/controllers/itemType/itemType.html',
-            controller: 'ItemTypeController'
-        }).state('reference', {
-            url: '/reference',
-            templateUrl: 'app/controllers/reference/reference.html',
-            controller: 'ReferenceController'
-        }).state('product', {
-            url: '/product',
-            templateUrl: 'app/controllers/product/product.html',
-            controller: 'ProductController'
+        }).state('messages', {
+            url: '/messages',
+            templateUrl: 'app/controllers/messages/messages.html',
+            controller: 'MessagesController'
+        }).state('receivers', {
+            url: '/receivers',
+            templateUrl: 'app/controllers/receivers/receivers.html',
+            controller: 'ReceiversController'
         }).state('home', {
             url: '/home',
             templateUrl: 'app/controllers/dashboard/dashboard.html',
             controller: 'DashboardController'
-        }).state('batch', {
-            url: '/batch',
-            templateUrl: 'app/controllers/batch/batch.html',
-            controller: 'BatchController'
         });
 
     $urlRouterProvider.otherwise("/home");

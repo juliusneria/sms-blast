@@ -9,12 +9,21 @@ import org.springframework.stereotype.Component;
 @Data
 public class AppProperties {
     private Twilio twilio = new Twilio();
+    private String contentHeader;
+    private String messageUrl;
+    private String vonageUser;
+    private String vonagePassword;
+    private String vonageViberType;
+    private String vonageViberId;
+    private String vonageContentType;
 
     @Data
     public static class Twilio {
         private String accountSid;
         private String authToken;
         private String senderNo;
+        private String whatsappNo;
+        private String whatsappTag;
 
         @Override
         public String toString() {
@@ -22,6 +31,8 @@ public class AppProperties {
                     "accountSid='" + accountSid + '\'' +
                     ", authToken='" + authToken + '\'' +
                     ", senderNo='" + senderNo + '\'' +
+                    ", whatsappNo='" + whatsappNo + '\'' +
+                    ", whatsappTag='" + whatsappTag + '\'' +
                     '}';
         }
 

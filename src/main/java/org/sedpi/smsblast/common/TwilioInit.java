@@ -2,7 +2,7 @@ package org.sedpi.smsblast.common;
 
 import com.twilio.Twilio;
 import org.apache.logging.log4j.Logger;
-import org.sedpi.smsblast.sendSms.SendSmsController;
+import org.sedpi.smsblast.endpoints.sendSms.SendSmsController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

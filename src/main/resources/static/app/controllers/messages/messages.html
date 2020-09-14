@@ -1,0 +1,184 @@
+<section id="content">
+    <!--start container-->
+    <div class="container">
+        <div class="card-panel">
+            <h4 class="header2">Send by Individual</h4>
+            
+            <div class="row">
+                <div ng-show="isLoadingSingle" class="col s12 center-align">
+                    <div class="preloader-wrapper big active">
+                        <div class="spinner-layer center spinner-blue-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form ng-show="!isLoadingSingle" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="firstname" ng-model="receiver.firstName" type="text">
+                            <label for="firstname">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="lastname" ng-model="receiver.lastName" type="text">
+                            <label for="lastname">last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input id="number" ng-model="receiver.mobileNo" type="text">
+                            <label for="number">Number</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input id="location" ng-model="receiver.location" type="text">
+                            <label for="location">Location</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <select ng-model="message.portalType" material-select watch>
+                                <option disabled selected>Sending Module</option>
+                                <option value="Viber">
+                                    Viber
+                                </option>
+                                <option value="WhatsApp">
+                                    WhatsApp
+                                </option>
+                                <option value="SMS">
+                                    SMS
+                                </option>
+                            </select>
+                            <label>Select Module</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="message" ng-model="message.body" class="materialize-textarea" data-length="160"></textarea>
+                            <label for="message" class="">Message</label>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button class="btn cyan waves-effect waves-light left" type="submit"
+                                    name="action" ng-click="singleSubmit()">Submit
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <ul class="collapsible collapsible-accordion" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons">file_upload</i> For bulk sending, kindly click this and
+                            drag your Excel file to proceed
+                        </div>
+                        <div class="collapsible-body">
+
+                            <div ng-show="isLoadingBulk" class="col s12 center-align">
+                                <div class="preloader-wrapper big active">
+                                    <div class="spinner-layer center spinner-blue-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div ng-show="!isLoadingBulk" class="row section">
+                                <div class="col s12">
+                                    <input type="file" id="inputFile" class="dropify" name="fileread"
+                                        custom-on-change="uploadFile">
+                                </div>
+                            </div>
+
+                            <div ng-show="!isLoadingBulk" id="table-datatables" ng-if="sendMessages.length > 0">
+                                <h4 class="header">Recipients</h4>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th data-field="id">Name</th>
+                                                    <th data-field="name">Mobile Number</th>
+                                                    <th data-field="price">Location</th>
+                                                    <th data-field="price">Message Body</th>
+                                                    <th data-field="price">Sending Module</th>
+                                                    <th data-field="price">Date</th>
+                                                    <th data-field="price">Managed by</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="message in sendMessages">
+                                                    <td>{{message.Firstname}} {{message.Lastname}}</td>
+                                                    <td>{{message.Number}}</td>
+                                                    <td><i class="flag-icon flag-icon-ph"></i> {{message.Location}}</a></td>
+                                                    <td>{{message.Message}}</td>
+                                                    <td ng-if="message.Module == 'Viber'">
+                                                        <span class="task-cat purple darken-4">Viber</span>
+                                                    </td>
+                                                    <td ng-if="message.Module == 'WhatsApp'">
+                                                        <span class="task-cat teal darken-4">WhatsApp</span>
+                                                    </td>
+                                                    <td ng-if="message.Module == 'SMS'">
+                                                        <span class="task-cat grey darken-4">SMS</span>
+                                                    </td>
+                                                    <td>{{date}}</td>
+                                                    <td>Sir Vince</td>
+                                                </tr>
+                                                <!-- <tr>
+                                                    <td>Arjay</td>
+                                                    <td>+639918856544</td>
+                                                    <td><i class="flag-icon flag-icon-ph"></i> Philippines</a></td>
+                                                    <td>Hello SEDPI</td>
+                                                    <td><span class="task-cat teal darken-4">WhatsApp</span></td>
+                                                    <td>9/9/2020</td>
+                                                    <td>Sir Vince</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Pam</td>
+                                                    <td>+639918856544</td>
+                                                    <td><i class="flag-icon flag-icon-ph"></i> Philippines</a></td>
+                                                    <td>Hello SEDPI</td>
+                                                    <td><span class="task-cat grey darken-3">SMS</span></td>
+                                                    <td>9/9/2020</td>
+                                                    <td>Sir Vince</td>
+                                                </tr> -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn cyan waves-effect waves-light left" type="submit" name="action"
+                                        ng-click="bulkSubmit()">Submit
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--end container-->
+</section>
